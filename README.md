@@ -1,6 +1,33 @@
-# Log time on Commits in to Teamwork
+# Log time on Commits in Teamwork
 
+A Python script to import your Github projects in to Teamwork as Task Lists and then log time for each of the commits in the project. This allows you to see how long you spent on open source projects.
+
+![Some logged time in Teamwork](https://raw.githubusercontent.com/gordonmurray/teamwork_log_time_on_commits/main/images/logged_time.png)
+
+![GitHub Projects in Teamwork](https://raw.githubusercontent.com/gordonmurray/teamwork_log_time_on_commits/main/images/screenshot.png)
+
+
+Set up
+
+First create a config file with your Githib and Teamwork defaults:
+
+```python
+# config.py
+
+teamwork_url = "https://xxxxx.teamwork.com"
+teamwork_api_key = "twp_xxxxxx"
+github_username = "gordonmurray"
+github_personal_access_token = "ghp_xxxxxx"
+teamwork_user_id = xxxxxx
+teamwork_project_id = "xxxxxx"
+default_minutes = 15
+api_rate_limit_sleep = 3
 ```
+
+Then install Python requirements and run the file:
+
+
+```bash
 sudo apt install python3.11-venv -y
 
 python3 -m venv commits
@@ -17,28 +44,28 @@ This uses the following Teamwork API calls:
 
 Create a Task list in a project
 
-```
-curl -X POST 'https://[YOUR_ACCOUNT].teamwork.com/projects/693059/tasklists.json' \
+```bash
+curl -X POST 'https://[YOUR_ACCOUNT].teamwork.com/projects/10000/tasklists.json' \
 -H 'Authorization: Basic YOUR_TOKEN' \
 -H 'Content-Type: application/json' \
--d '{"todo-list":{"name":"fourth task list","description":"blaah"}}'
+-d '{"todo-list":{"name":"A task list","description":"Boo!"}}'
 ```
 
 Create a task in a list:
 
 
-```
-curl -X POST 'https://[YOUR_ACCOUNT].teamwork.com/tasklists/2924348/tasks.json' \
+```bash
+curl -X POST 'https://[YOUR_ACCOUNT].teamwork.com/tasklists/10000/tasks.json' \
 -H 'Authorization: Basic YOUR_TOKEN' \
 -H 'Content-Type: application/json' \
--d '{"todo-item":{"content":"a new task ","tasklistId":2924348,"description":""}}'
+-d '{"todo-item":{"content":"A new task ","tasklistId":10000,"description":""}}'
 ```
 
 Log time on a task:
 
-```
-curl -X POST 'https://[YOUR_ACCOUNT].teamwork.com/projects/api/v3/tasks/39564562/time.json' \
+```bash
+curl -X POST 'https://[YOUR_ACCOUNT].teamwork.com/projects/api/v3/tasks/10000/time.json' \
 -H 'Authorization: Basic YOUR_TOKEN' \
 -H 'Content-Type: application/json' \
--d '{"timelog":{"hours":0,"minutes":30,"date":"2023-11-29","time":"20:40:00","description":"asdasdasdsa","isBillable":false,"taskId":39564562,"userId":154258}}'
+-d '{"timelog":{"hours":0,"minutes":30,"date":"2023-11-29","time":"20:40:00","description":"Some Description","isBillable":false,"taskId":10000,"userId":10000}}'
 ```
