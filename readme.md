@@ -2,10 +2,9 @@
 
 A Python script to import your Github projects in to Teamwork as Task Lists and then log time for each of the commits in the project. This allows you to see how long you spent on open source projects.
 
-![Alt text](images/logged_time.png)
+![Some logged time in Teamwork]({{ site.url }}/images/logged_time.png)
 
-![Teamwork Screenshot](images/screenshot.png)
-
+![A list of Github projects in Teamwork]({{ site.url }}/images/screenshot.png)
 
 Set up
 
