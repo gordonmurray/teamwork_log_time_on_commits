@@ -2,11 +2,16 @@ import requests
 import base64
 from datetime import datetime
 from urllib.parse import urljoin
-from config import base_url
+from config import teamwork_url
+from config import teamwork_api_key
+from config import teamwork_user_id
+from config import teamwork_project_id
+from config import github_personal_access_token
+import json
 
-def create_task_list(task_list_name, auth_code, project_id="693059"):
+def create_task_list(task_list_name, auth_code, project_id=teamwork_project_id):
 
-    full_url = urljoin(base_url, "/projects/")
+    full_url = urljoin(teamwork_url, "/projects/")
 
     # Encoding the auth_code for basic authentication
     encoded_auth = base64.b64encode(auth_code.encode()).decode()
@@ -45,7 +50,7 @@ def create_task_list(task_list_name, auth_code, project_id="693059"):
 
 def create_task(task_list_id, auth_code, content):
 
-    full_url = urljoin(base_url, "/tasklists/")
+    full_url = urljoin(teamwork_url, "/tasklists/")
 
     # Encoding the auth_code for basic authentication
     encoded_auth = base64.b64encode(auth_code.encode()).decode()
@@ -84,7 +89,7 @@ def create_task(task_list_id, auth_code, content):
 
 def create_time_entry(task_id, auth_code, minutes, datetime_obj):
 
-    full_url = urljoin(base_url, "/projects/api/v3/tasks/")
+    full_url = urljoin(teamwork_url, "/projects/api/v3/tasks/")
 
     # Encoding the auth_code for basic authentication
     encoded_auth = base64.b64encode(auth_code.encode()).decode()
@@ -115,7 +120,7 @@ def create_time_entry(task_id, auth_code, minutes, datetime_obj):
             "description": "Time logged",
             "isBillable": False,
             "taskId": int(task_id),
-            "userId": 154258  # Replace with your user ID
+            "userId": teamwork_user_id
         }
     }
 
